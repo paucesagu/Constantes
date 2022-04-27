@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_principal_light">#EF5350</color>
+    <color name="color_principal_night">#FFEBEE</color>
+    <color name="color_secundario_light">#81C784</color>
+    <color name="color_secundario_night">#E8F5E9</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
