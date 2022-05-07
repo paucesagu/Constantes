@@ -68,7 +68,7 @@ class PaginaPrincipal : AppCompatActivity() {
 
         val intent = getIntent()
         val valorPulso = intent.extras?.getInt("valorPulso")
-        pulso.text = valorPulso.toString()+" pulsaciones/minuto"
+        pulso.text = valorPulso.toString()+" pulsaciones/min"
 
     }
 }
