@@ -19,6 +19,9 @@ class PaginaPrincipal : AppCompatActivity() {
     private lateinit var pregunta2:TextView
     private lateinit var respuesta1: TextView
     private lateinit var respuesta2: TextView
+    private lateinit var pulso : TextView
+    private lateinit var pasos :  TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +65,10 @@ class PaginaPrincipal : AppCompatActivity() {
                 startActivity(this)
             }
         }
+
+        val intent = getIntent()
+        val valorPulso = intent.extras?.getInt("valorPulso")
+        pulso.text = valorPulso.toString()+" pulsaciones/minuto"
 
     }
 }

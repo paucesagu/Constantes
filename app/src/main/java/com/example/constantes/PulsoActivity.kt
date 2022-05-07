@@ -34,12 +34,11 @@ class PulsoActivity : AppCompatActivity() {
         val valorPulso = pulso.text.toString()
         val rangoPulso = 15..350
         if(!valorPulso.isNullOrBlank() and (valorPulso.toInt() in rangoPulso)) {
-            val intent = Intent(this, PaginaPrincipal::class.java).apply{
-                startActivity(this)
+            val intent = Intent(this, PaginaPrincipal::class.java)
+            intent.putExtra("valorPulso", valorPulso)
+            startActivity(intent)
             }
 
-
-        }
         else{
             showAlert("El valor introducido está fuera de rango, debe estar entre 15 y 350")
         }

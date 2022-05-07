@@ -41,8 +41,8 @@
 
         <Button
             android:id="@+id/buttonPulso"
-            android:layout_width="304dp"
-            android:layout_height="54dp"
+            android:layout_width="219dp"
+            android:layout_height="49dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="44dp"
             android:layout_marginEnd="30dp"
@@ -57,7 +57,7 @@
             android:layout_width="304dp"
             android:layout_height="54dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/bordes_redondos"
             android:text="Pasos en el día de hoy"
@@ -70,7 +70,7 @@
             android:layout_width="304dp"
             android:layout_height="54dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/bordes_redondos"
             android:text="Tensión arterial"
@@ -84,7 +84,7 @@
             android:layout_width="304dp"
             android:layout_height="54dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/bordes_redondos"
             android:text="Temperatura corporal"
@@ -98,7 +98,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="35dp"
             android:background="@drawable/ver_mas"
             android:text="Ver más"
@@ -111,7 +111,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="35dp"
             android:background="@drawable/ver_mas"
             android:text="Ver menos"
@@ -180,6 +180,30 @@
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/respuesta2" />
+
+        <TextView
+            android:id="@+id/pulso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonPulso" />
+
+        <TextView
+            android:id="@+id/pasos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonPasos" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
