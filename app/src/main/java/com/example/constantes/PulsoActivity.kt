@@ -59,7 +59,7 @@ class PulsoActivity : AppCompatActivity() {
             }
 
         else{
-            showAlert("El valor introducido está fuera de rango, debe estar entre 15 y 350.")
+            showAlert("El valor introducido está fuera de rango, debe estar entre 15 y 350")
         }
     }
 
