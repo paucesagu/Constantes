@@ -8,7 +8,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.TextView
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PulsoActivity : AppCompatActivity() {
 
@@ -27,16 +30,32 @@ class PulsoActivity : AppCompatActivity() {
 
 
     }
+    public fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
 
 
 
     public fun onClickGuardar(view : View){
+        val myDB = FirebaseFirestore.getInstance()
+        val fechaActual = Calendar.getInstance().time
+        val fechaEnString = fechaActual.toString("dd/MM/yyyy HH:mm:ss")
+
+
         val valorPulso = pulso.text.toString()
         val rangoPulso = 15..350
+
+
+
         if(!valorPulso.isNullOrBlank() and (valorPulso.toInt() in rangoPulso)) {
-            val intent = Intent(this, PaginaPrincipal::class.java)
-            intent.putExtra("valorPulso", valorPulso)
-            startActivity(intent)
+            myDB.collection("constantes").document("pulso").collection("pulsos recogidos").add(mapOf(
+                "valor" to valorPulso,
+                "fecha" to fechaEnString))
+            showAlert("Pulso guardado correctamente")
+            val intent = Intent(this, PaginaPrincipal::class.java).apply{
+                startActivity(this)
+            }
             }
 
         else{
@@ -48,7 +67,6 @@ class PulsoActivity : AppCompatActivity() {
         //mostramos cuadro de dialogo
         //inicializar cuadro de dialogo con la clase alertDialog
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
         builder.setMessage(text)
         builder.setPositiveButton("Aceptar", null) //ponemos null porque lo qe queremos es que se quite no que
         //nos muestre una nueva pantalla

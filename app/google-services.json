@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "385374445133",
+    "project_id": "constantes-sas",
+    "storage_bucket": "constantes-sas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385374445133:android:7a9f0ad30af872f7b68604",
+        "android_client_info": {
+          "package_name": "com.example.constantes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385374445133-geadhh0s7qvluvhr3l1lt9j78d5rb7l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUPHRnBWRxHXf3WwL_UsZRiPEWtfllBBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385374445133-geadhh0s7qvluvhr3l1lt9j78d5rb7l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

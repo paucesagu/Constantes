@@ -6,6 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class PaginaPrincipal : AppCompatActivity() {
 
@@ -23,6 +30,7 @@ class PaginaPrincipal : AppCompatActivity() {
     private lateinit var pasos :  TextView
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pagina_principal)
@@ -37,6 +45,8 @@ class PaginaPrincipal : AppCompatActivity() {
         pregunta2= findViewById(R.id.pregunta2)
         respuesta1=findViewById(R.id.respuesta1)
         respuesta2 = findViewById(R.id.respuesta2)
+        pulso = findViewById(R.id.pulsoText)
+
 
         buttonVer.setOnClickListener {
             buttonTemperatura.visibility= View.VISIBLE
@@ -66,9 +76,62 @@ class PaginaPrincipal : AppCompatActivity() {
             }
         }
 
-        val intent = getIntent()
-        val valorPulso = intent.extras?.getInt("valorPulso")
-        pulso.text = valorPulso.toString()+" pulsaciones/min"
+    mostrarPulso()
 
     }
+
+    private fun pasardeStringaDate(fecha : String) : Date{
+
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        val date = simpleDateFormat.parse(fecha)
+
+        return date
+
+    }
+    public fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    private fun pulsoMasReciente() : String {
+        val myDB = FirebaseFirestore.getInstance()
+        var idPulso = ""
+        var resFecha = pasardeStringaDate("10/01/2020 00:00:00")
+
+
+        val coleccion =
+            myDB.collection("constantes").document("pulso").collection("pulsos recogidos")
+        val task: Task<QuerySnapshot> = coleccion.get()
+        while (!task.isComplete) {
+
+        }
+
+
+        task.result?.forEach { doc ->
+            val fechaDoc = pasardeStringaDate(doc.get("fecha").toString())
+            if (fechaDoc.after(resFecha)) {
+                resFecha = fechaDoc
+                idPulso = doc.id
+            }
+
+
+            }
+        return idPulso
+
+        }
+
+
+
+
+    private fun mostrarPulso(){
+        val myDB = FirebaseFirestore.getInstance()
+        val pulsoReciente = pulsoMasReciente()
+        val valorPulso = myDB.collection("constantes").document("pulso").collection("pulsos recogidos")
+            .document(pulsoReciente).get().addOnSuccessListener {
+                pulso.setText(it.getString("valor") + " latidos/minuto")
+            }
+
+
+
+        }
 }
