@@ -13,7 +13,7 @@ class PaginaInicio : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pagina_inicio)
         val tiempo = 2000L
-        val intent = Intent(this, PaginaPrincipal::class.java)
+        val intent = Intent(this, PantallaLogin::class.java)
         val handler = Handler()
         handler.postDelayed({
             startActivity(intent)

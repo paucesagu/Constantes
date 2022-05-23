@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Constantes">
         <activity
+            android:name=".RegistarseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PantallaLogin"
+            android:exported="false" />
+        <activity
             android:name=".PulsoActivity"
             android:exported="false" />
         <activity

@@ -10,6 +10,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.TextView
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.QuerySnapshot
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,6 +21,7 @@ class PulsoActivity : AppCompatActivity() {
     private lateinit var pulso: EditText
     private lateinit var hora: ImageButton
     private lateinit var guardar:Button
+    private lateinit var idUsuario : String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +33,32 @@ class PulsoActivity : AppCompatActivity() {
         guardar= findViewById(R.id.savebutton)
 
 
+        val emailUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+        idUsuario = conseguirID(emailUser)
+
     }
+
+
+
+    private fun conseguirID(email : String) : String{
+        var identificador = ""
+        val myDB = FirebaseFirestore.getInstance()
+        val colUsuarios = myDB.collection("usuarios")
+        val task: Task<QuerySnapshot> = colUsuarios.get()
+        while (!task.isComplete) {
+        }
+        task.result?.forEach{u->
+            if(u.get("email") == email){
+                identificador = u.id.toString()
+            }
+
+        }
+        return identificador
+    }
+
+
+
+
     public fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
         val formatter = SimpleDateFormat(format, locale)
         return formatter.format(this)
@@ -43,13 +72,14 @@ class PulsoActivity : AppCompatActivity() {
         val fechaEnString = fechaActual.toString("dd/MM/yyyy HH:mm:ss")
 
 
+
         val valorPulso = pulso.text.toString()
         val rangoPulso = 15..350
 
 
 
         if(!valorPulso.isNullOrBlank() and (valorPulso.toInt() in rangoPulso)) {
-            myDB.collection("constantes").document("pulso").collection("pulsos recogidos").add(mapOf(
+            myDB.collection("usuarios").document(idUsuario).collection("constantes").document("pulso").collection("pulsos recogidos").add(mapOf(
                 "valor" to valorPulso,
                 "fecha" to fechaEnString))
             showAlert("Pulso guardado correctamente")

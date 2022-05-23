@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import java.text.SimpleDateFormat
@@ -28,6 +29,7 @@ class PaginaPrincipal : AppCompatActivity() {
     private lateinit var respuesta2: TextView
     private lateinit var pulso : TextView
     private lateinit var pasos :  TextView
+    private lateinit var idUsuario : String
 
 
 
@@ -46,6 +48,9 @@ class PaginaPrincipal : AppCompatActivity() {
         respuesta1=findViewById(R.id.respuesta1)
         respuesta2 = findViewById(R.id.respuesta2)
         pulso = findViewById(R.id.pulsoText)
+
+        val emailUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+        idUsuario = conseguirID(emailUser)
 
 
         buttonVer.setOnClickListener {
@@ -80,6 +85,23 @@ class PaginaPrincipal : AppCompatActivity() {
 
     }
 
+    private fun conseguirID(email : String) : String{
+        var identificador = ""
+        val myDB = FirebaseFirestore.getInstance()
+        val colUsuarios = myDB.collection("usuarios")
+        val task: Task<QuerySnapshot> = colUsuarios.get()
+        while (!task.isComplete) {
+        }
+        task.result?.forEach{u->
+            if(u.get("email") == email){
+                identificador = u.id.toString()
+            }
+
+        }
+        return identificador
+    }
+
+
     private fun pasardeStringaDate(fecha : String) : Date{
 
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
@@ -100,7 +122,7 @@ class PaginaPrincipal : AppCompatActivity() {
 
 
         val coleccion =
-            myDB.collection("constantes").document("pulso").collection("pulsos recogidos")
+            myDB.collection("usuarios").document(idUsuario).collection("constantes").document("pulso").collection("pulsos recogidos")
         val task: Task<QuerySnapshot> = coleccion.get()
         while (!task.isComplete) {
 
@@ -126,10 +148,16 @@ class PaginaPrincipal : AppCompatActivity() {
     private fun mostrarPulso(){
         val myDB = FirebaseFirestore.getInstance()
         val pulsoReciente = pulsoMasReciente()
-        val valorPulso = myDB.collection("constantes").document("pulso").collection("pulsos recogidos")
-            .document(pulsoReciente).get().addOnSuccessListener {
-                pulso.setText(it.getString("valor") + " latidos/minuto")
-            }
+        if (!pulsoReciente.isNullOrEmpty()){
+            val valorPulso = myDB.collection("usuarios").document(idUsuario).collection("constantes").document("pulso").collection("pulsos recogidos")
+                .document(pulsoReciente).get().addOnSuccessListener {
+                    pulso.setText(it.getString("valor") + " latidos/minuto")
+                }
+        }
+        else{
+            pulso.setText("No hay pulsos aún")
+        }
+
 
 
 
