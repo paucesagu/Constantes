@@ -37,7 +37,7 @@ class RegistarseActivity : AppCompatActivity() {
         apellidos = findViewById(R.id.editTextApellidos)
         fechaNacimiento = findViewById(R.id.editTextFecha)
         telefono = findViewById(R.id.editTextTelefono)
-        contraseña = findViewById(R.id.editTextContraseña1)
+        contraseña = findViewById(R.id.editTextContraseña)
         contraseña2 = findViewById(R.id.editTextContraseña2)
         registrarse = findViewById(R.id.buttonRegistrarse2)
         dni = findViewById(R.id.editTextDNI)

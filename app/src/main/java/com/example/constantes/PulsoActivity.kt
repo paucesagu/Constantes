@@ -19,7 +19,7 @@ import java.util.*
 class PulsoActivity : AppCompatActivity() {
 
     private lateinit var pulso: EditText
-    private lateinit var hora: ImageButton
+
     private lateinit var guardar:Button
     private lateinit var idUsuario : String
 
@@ -29,7 +29,7 @@ class PulsoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pulso)
 
         pulso = findViewById(R.id.editTextPulso)
-        hora = findViewById(R.id.buttonHora)
+
         guardar= findViewById(R.id.savebutton)
 
 
